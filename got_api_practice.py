@@ -3,8 +3,32 @@ from characters import characters
 from houses import houses
 
 #  util fxns
+def get_attr(character, attr):
+    return character[attr]
+
 def get_name(character):
-    return character["name"]
+    return get_attr(character, "name")
+
+def get_last_name(character):
+    name = get_name(character).split(' ')
+    return name[len(name) - 1]
+    
+def find_all_with_surname(characters, surname):
+    res = []
+    out = []
+    for character in characters:
+        if get_last_name(character) == surname:
+            res.append(get_name(character))
+    # dedupe names
+    for name in res:
+        if name not in out:
+            out.append(name)
+    return out
+
+def find_actor_name(characters, name):
+    for character in characters:
+        if get_name(character) == name:
+            return character["playedBy"][0]
 
 def find_most_titles(characters):
     ref = 0
@@ -89,10 +113,17 @@ pprint(
 )
 
 # 6
-
+print("\nName of actor who plays 'Hot Pie'")
+pprint(
+    find_actor_name(characters, "Hot Pie")
+)
 
 # 7
 print("\nNumber of characters in show: ")
 pprint(
     count_characters(characters, is_in_show)
 )
+
+print("\nList of all characters with last name Targaryen:")
+# 8
+pprint(find_all_with_surname(characters, "Targaryen"))
