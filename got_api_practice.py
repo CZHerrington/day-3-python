@@ -25,6 +25,29 @@ def find_all_with_surname(characters, surname):
             out.append(name)
     return out
 
+def translate_houses_url_key(arr):
+    hdict = {}
+    urls = arr.keys()
+    for url in urls:
+        house = houses[url]
+        hdict[house] = arr[url]
+    return hdict
+
+def house_histogram(characters):
+    histogram = {}
+    # populate histogram
+    for character in characters:
+        allegiances = get_attr(character, "allegiances")
+        for allegiance in allegiances:
+            if allegiance not in histogram:
+                histogram[allegiance] = 0
+    # increment histogram
+    for character in characters:
+        allegiances = get_attr(character, "allegiances")
+        for allegiance in allegiances:
+            histogram[allegiance] += 1
+    return translate_houses_url_key(histogram)
+
 def find_actor_name(characters, name):
     for character in characters:
         if get_name(character) == name:
@@ -127,3 +150,7 @@ pprint(
 print("\nList of all characters with last name Targaryen:")
 # 8
 pprint(find_all_with_surname(characters, "Targaryen"))
+
+#9
+print("\nhouse histogram")
+pprint(house_histogram(characters))
