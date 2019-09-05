@@ -1,6 +1,9 @@
-# Day 4
+# Day 3
 
 > `Python` is generally pass by reference and assign by value
+
+`got_api_practice.py` uses the `characters.py` and `houses.py` files to answer the following questions
+
 * How many characters names start with "A"?
 * How many characters names start with "Z"?
 * How many characters are dead?
