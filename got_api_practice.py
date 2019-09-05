@@ -147,10 +147,14 @@ pprint(
     count_characters(characters, is_in_show)
 )
 
-print("\nList of all characters with last name Targaryen:")
 # 8
-pprint(find_all_with_surname(characters, "Targaryen"))
+print("\nList of all characters with last name Targaryen:")
+pprint(
+    find_all_with_surname(characters, "Targaryen")
+)
 
 #9
 print("\nhouse histogram")
-pprint(house_histogram(characters))
+pprint(
+    house_histogram(characters)
+)
