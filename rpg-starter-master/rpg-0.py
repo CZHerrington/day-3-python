@@ -12,6 +12,9 @@ class Character:
         self.health = health
         self.power = power
         self.name = name
+
+    def health_check(self, string):
+        print("The %s has %d health and %d power." % (self.name, self.health, self.power))
     
     def alive(self):
         return (self.health > 0)
@@ -28,6 +31,10 @@ class Goblin(Character):
         print("The %s has %d health and %d power." % (self.name, self.health, self.power))
 
 class Zombie(Character):
+    def __init__(self, health, power, name):
+        super().__init__(health, power, name)
+        self.health = float('inf')
+
     def alive(self):
         return True
 
@@ -36,25 +43,26 @@ class Zombie(Character):
 
 def main():
     hero = Hero(10, 5, "hero")
-    goblin = Zombie(6, 2, 'zombie')
+    enemy = Zombie(6, 2, 'zombie')
+    enemy = Goblin(10, 3, 'David Bowie')
 
-    while hero.alive() and goblin.alive():
+    while hero.alive() and enemy.alive():
         print()
         hero.health_check()
-        goblin.health_check()
+        enemy.health_check()
         print()
         print("What do you want to do?")
-        print("1. fight goblin")
+        print("1. fight {}".format(enemy.name))
         print("2. do nothing")
         print("3. flee")
         print("> ", end='')
         user_input = input()
         if user_input == "1":
-            # Hero powers goblin
-            hero.attack(goblin)
-            print("You do %d damage to the %s." % (hero.power, goblin.name))
-            if not goblin.alive():
-                print("The %s is dead." % goblin.name)
+            # Hero powers enemy
+            hero.attack(enemy)
+            print("You do %d damage to the %s." % (hero.power, enemy.name))
+            if not enemy.alive():
+                print("The %s is dead." % enemy.name)
         elif user_input == "2":
             pass
         elif user_input == "3":
@@ -63,10 +71,10 @@ def main():
         else:
             print("Invalid input %r" % user_input)
 
-        if goblin.alive():
-            # Goblin attacks hero
-            goblin.attack(hero)
-            print("The %s does %d damage to you." % (goblin.name, goblin.power))
+        if enemy.alive():
+            # enemy attacks hero
+            enemy.attack(hero)
+            print("The %s does %d damage to you." % (enemy.name, enemy.power))
             if not hero.alive():
                 print("You are dead.")
 
